@@ -1,0 +1,23 @@
+{
+  "name": "torquelab",
+  "version": "1.0.0",
+  "description": "Performance estimator for cars",
+  "main": "src/Server.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ItsHisoka17/TorqueLab.git"
+  },
+  "author": "Jxdn",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/ItsHisoka17/TorqueLab/issues"
+  },
+  "homepage": "https://github.com/ItsHisoka17/TorqueLab#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1"
+  }
+}
