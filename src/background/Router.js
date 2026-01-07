@@ -1,15 +1,11 @@
-const { json } = require("express");
+const express = require("express");
 const calc = require("./Calc");
 const error = require("./ErrorHandler");
 
 class Router {
     constructor(server){
         this.server = server;
-        server.use(json());
-
-        server.get("/", (req, res)=> {
-            res.status(200);
-        });
+        server.use(express.json());
 
         server.post("/api/calculate", (req, res)=> {
             try {
@@ -18,8 +14,9 @@ class Router {
                 error({message: e, status: 400}, req, res);
             };
         });
-    };
 
+        server.use(express.static(`${process.cwd()}/src/client/dist`))
+    };
 
     initialize(port){
         console.log("Server Initializing...");

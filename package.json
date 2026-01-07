@@ -2,9 +2,10 @@
   "name": "torquelab",
   "version": "1.0.0",
   "description": "Performance estimator for cars",
-  "main": "src/Resources/background/Server.js",
+  "main": "src/background/Server.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "npm run test",
+    "build": "cd src/client && npm run build"
   },
   "repository": {
     "type": "git",
