@@ -5,7 +5,10 @@
   "main": "src/background/Server.js",
   "scripts": {
     "test": "npm run test",
-    "build": "cd src/client && npm run build"
+    "build": "cd src/client && npm run build",
+    "killport": "./scripts/kill.sh",
+    "run": "./scripts/init.sh",
+    "start": "node ."
   },
   "repository": {
     "type": "git",

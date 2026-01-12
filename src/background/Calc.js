@@ -1,10 +1,10 @@
 module.exports = function(req, res){
-    let {h, t, w, d} = req.body;
+    let {h, t, w} = req.body;
     ((...args)=> {
         args.splice(2, 1).some((e)=> {
             if (e===null||typeof e !== "number") throw TypeError(`[${e}] is not a valid parameter`);
         });
-    })(h, t, w, d);
+    })(h, t, w);
     let driveTerrainFactor = {
         AWD: 0.92,
         RWD: 1.00,
