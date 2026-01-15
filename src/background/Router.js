@@ -20,7 +20,7 @@ class Router {
 
     initialize(port){
         console.log("Server Initializing...");
-        this.server.listen(port, (()=> {
+        this.server.listen(port, "0.0.0.0", (()=> {
             console.log(`Server Initialized\nServer Running | Port [${port}]`);
         }));
     };

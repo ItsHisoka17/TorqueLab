@@ -1,55 +1,93 @@
-resource "aws_iam.role" "eks_cluster.role" {
-    name = "torquelab-eks-cluster-role"
+resource "aws_iam_role" "eks_cluster_role" {
+  name = "torquelab-eks-cluster-role"
 
-    assume_role_policy = jsonencode({
-        Version = "2012-10-17"
-        Statement = [{
-            Effect = "Allow"
-            Principal = {
-                Service = "eks.amazonaws.com"
-            }
-            Action = "sts:AssumeRole"
-        }]
-    })
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "eks.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
 }
-resource "aws_iam_role_policy_attachment"{
-    role = aws_iam_role.eks_cluster.role.name
-    policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+
+resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
+  role       = aws_iam_role.eks_cluster_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
+
 
 resource "aws_eks_cluster" "torquelab" {
-    name = "torquelab-cluster"
-    role_arn = aws_iam_role.eks_cluster_role.arn
+  name     = "torquelab-cluster"
+  role_arn = aws_iam_role.eks_cluster_role.arn
 
-    vpc_config {
-        subnet_ids = module.vpc.private_subnets
-    }
+  vpc_config {
+    subnet_ids = module.vpc.private_subnets
+  }
 
-    depends_on = [
-        aws_iam_role_policy_attachment.eks_cluster_policy
-    ]
+  depends_on = [
+    aws_iam_role_policy_attachment.eks_cluster_policy
+  ]
 }
+
 
 resource "aws_iam_role" "eks_node_role" {
-    name = "torquelab-eks-node-role"
-    assume_role_policy = jsonencode({
-        Version = "2012-10-17"
-        Statement = [{
-            Effect = "Allow"
-            Principal = {
-                Service = "ec2.amazonaws.com"
-            }
-            Action = "sts:AssumeRole"
-        }]
-    })        
+  name = "torquelab-eks-node-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
 }
 
-resource "aws_iam_role_policy_attachment" "node_policies" {
-    for_each = toset([
-        "arn:aws:iam:aws:policy//AmazonEKSWorkerNodePolicy"
-        "arn:aws:iam:aws:policy//AmazonEKS_CNI_Policy"
-        "arn:aws:iam:aws:policy//AmazonEC2ContainerRegistryReadOnly"
-    ])
-    role = aws_iam_role.eks_node_role.name
-    policy_arm = each.value
+resource "aws_iam_role_policy_attachment" "eks_node_policies" {
+  for_each = toset([
+    "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
+    "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
+    "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  ])
+
+  role       = aws_iam_role.eks_node_role.name
+  policy_arn = each.value
+}
+
+
+resource "null_resource" "eks_wait" {
+    depends_on = [aws_eks_cluster.torquelab]
+    provisioner "local-exec" {
+        command = "echo Waiting 60s for EKS endpoint && sleep 60"
+    }
+}
+
+resource "aws_eks_node_group" "torquelab_nodes" {
+  cluster_name    = aws_eks_cluster.torquelab.name
+  node_group_name = "torquelab-node-group"
+  node_role_arn   = aws_iam_role.eks_node_role.arn
+  subnet_ids      = module.vpc.private_subnets
+
+  instance_types = ["t3.micro"]
+
+  scaling_config {
+    desired_size = 1
+    max_size     = 2
+    min_size     = 1
+  }
+
+
+  depends_on = [
+    null_resource.eks_wait,
+    aws_iam_role_policy_attachment.eks_node_policies
+  ]
 }

@@ -1,7 +1,7 @@
 module.exports = function(req, res){
-    let {h, t, w} = req.body;
+    let {h, t, w, d} = req.body;
     ((...args)=> {
-        args.splice(2, 1).some((e)=> {
+        args.some((e)=> {
             if (e===null||typeof e !== "number") throw TypeError(`[${e}] is not a valid parameter`);
         });
     })(h, t, w);

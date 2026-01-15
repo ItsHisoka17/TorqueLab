@@ -1,4 +1,5 @@
-port=3000
+echo "Enter Port:"
+read port
 
 pid=$(lsof -ti:$port)
 
