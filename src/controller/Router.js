@@ -1,5 +1,5 @@
 const express = require("express");
-const calc = require("./Calc");
+const calc = require("../background/Calc");
 const error = require("./ErrorHandler");
 
 class Router {
@@ -9,7 +9,12 @@ class Router {
 
         server.post("/api/calculate", (req, res)=> {
             try {
-            calc(req, res)
+            if (req.body&&Object.hasOwn(req.body, "data")){
+                let data = calc(req.body.data);
+                return res.json(data)
+            } else {
+                return error({message: "400 Invalid Request", status: 400}, req, res)
+            }
             } catch (e) {
                 error({message: e, status: 400}, req, res);
             };

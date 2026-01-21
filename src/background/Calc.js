@@ -1,10 +1,20 @@
-module.exports = function(req, res){
-    let {h, t, w, d} = req.body;
+/**
+ * @typedef {import ("../../typings/Typings").CalcData} CalcData
+ * @typedef {import ("../../typings/Typings").CalcResult} CalcResult
+ */
+
+module.exports = 
+/**
+ * @param {CalcData} {h, t, w d}
+ * @return {CalcResult}
+*/
+function({h, t, w, d}){
     ((...args)=> {
         args.some((e)=> {
             if (e===null||typeof e !== "number") throw TypeError(`[${e}] is not a valid parameter`);
         });
     })(h, t, w);
+    
     let driveTerrainFactor = {
         AWD: 0.92,
         RWD: 1.00,
@@ -24,9 +34,9 @@ module.exports = function(req, res){
     quarterMile *= driveTerrainFactor[d];
     let trapSpeed = 234 * Math.pow((h / w), 0.333);
 
-    return res.json({
+    return {
         zeroToSixty,
         quarterMile,
         trapSpeed
-    });
+    };
 };

@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { AWS_ACCESS, AWS_KEY, PORT, ENV  } = process.env;
+let { AWS_ACCESS, AWS_KEY, PORT, ENV  } = process.env;
 
 PORT = PORT || 3000
 module.exports = {
