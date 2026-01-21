@@ -20,14 +20,21 @@ class Router {
             };
         });
 
-        server.use(express.static(`${process.cwd()}/src/client/dist`))
+        server.use(express.static(`${process.cwd()}/src/client/dist`));
+
     };
 
     initialize(port){
         console.log("Server Initializing...");
-        this.server.listen(port, "0.0.0.0", (()=> {
+        let instance = this.server.listen(port, "0.0.0.0", (()=> {
             console.log(`Server Initialized\nServer Running | Port [${port}]`);
         }));
+
+        process.on("SIGTERM", ()=> {
+            if (instance.close) instance.close(()=> {
+                console.log("Signal Received [SIGTERM] | Closing Server");
+            });
+        });
     };
 };
 
