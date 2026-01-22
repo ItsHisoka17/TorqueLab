@@ -5,10 +5,10 @@
   "main": "src/controller/Server.js",
   "scripts": {
     "test": "jest",
-    "build": "cd src/client && npm run build",
+    "build": "npm run build --prefix src/client",
     "killport": "./scripts/kill.sh",
-    "run": "./scripts/init.sh",
-    "start": "node ."
+    "rundev": "./scripts/init.sh",
+    "start": "npm run build && node ."
   },
   "repository": {
     "type": "git",

@@ -14,7 +14,7 @@ function({h, t, w, d}){
             if (e===null||typeof e !== "number") throw TypeError(`[${e}] is not a valid parameter`);
         });
     })(h, t, w);
-    
+
     let driveTerrainFactor = {
         AWD: 0.92,
         RWD: 1.00,

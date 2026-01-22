@@ -3,6 +3,9 @@ const calc = require("../background/Calc");
 const error = require("./ErrorHandler");
 
 class Router {
+    /**
+     * @param {import ("../../typings/Typings").App} server
+     */
     constructor(server){
         this.server = server;
         server.use(express.json());
@@ -27,14 +30,17 @@ class Router {
     initialize(port){
         console.log("Server Initializing...");
         let instance = this.server.listen(port, "0.0.0.0", (()=> {
-            console.log(`Server Initialized\nServer Running | Port [${port}]`);
+            console.log(`Server Initialized\nServer Running | Port [${instance.address().port}] | PID [${process.pid}]`);
         }));
-
-        process.on("SIGTERM", ()=> {
+        /**
+         * Listen for proccess shutdown signal [SIGTERM] and close connection safely
+         */
+        process.on("SIGTERM", (signal)=> {
             if (instance.close) instance.close(()=> {
-                console.log("Signal Received [SIGTERM] | Closing Server");
+                console.log(`Signal Received [${signal}] | Closing Server`);
             });
         });
+        return this.server;
     };
 };
 

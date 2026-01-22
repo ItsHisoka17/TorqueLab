@@ -3,4 +3,4 @@ read port
 
 pid=$(lsof -ti:$port)
 
-kill $pid
+kill -9 $pid

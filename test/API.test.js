@@ -1,7 +1,15 @@
+/**
+ * Testing API Router | Backend | Frontend
+ * Testing to be implemented without external modules
+*/
+
 const { Server } = require("tls");
 const { testData, routes, expectedResult } = require("./Constants");
 const server = require("../src/controller/Server");
 
+/**
+ * Testing for API Route api/calculate
+*/
 test("api/calculate Route Test", async ()=> {
     let routeAddr;
     let agent = server.listen(0);
