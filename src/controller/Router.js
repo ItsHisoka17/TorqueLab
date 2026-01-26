@@ -30,7 +30,7 @@ class Router {
     initialize(port){
         console.log("Server Initializing...");
         let instance = this.server.listen(port, "0.0.0.0", (()=> {
-            console.log(`Server Initialized\nServer Running | Port [${instance.address().port}] | PID [${process.pid}]`);
+            console.log(`Server Initialized\nServer Running | Port [${instance.address()?.port||port}] | PID [${process.pid}]`);
         }));
         /**
          * Listen for proccess shutdown signal [SIGTERM] and close connection safely
