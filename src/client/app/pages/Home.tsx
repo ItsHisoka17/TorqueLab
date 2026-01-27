@@ -17,7 +17,7 @@ export default function Home() {
             TorqueLab
           </h1>
         </div>
-        <p className="text-slate-400 mt-2">Real-time performance estimation — tweak and learn</p>
+        <p className="text-slate-400 mt-2">Real-time performance estimation</p>
       </div>
 
       <div className="glass rounded-2xl p-8 shadow-[0_30px_60px_rgba(2,6,23,0.7)] mx-auto max-w-xl">

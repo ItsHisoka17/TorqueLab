@@ -1,8 +1,29 @@
-export default function Stat({ label, value }: { label: string; value: string }) {
+export default function Stat({
+  label,
+  value,
+  highlight = "primary",
+}: {
+  label: string;
+  value: string;
+  highlight?: "primary" | "accent" | "glow";
+}) {
   return (
-    <div className="rounded-lg bg-black/30 p-3 text-center">
-      <div className="text-xs text-slate-400">{label}</div>
-      <div className="mt-1 text-lg font-semibold text-primary">{value}</div>
+    <div className="group text-center">
+      <div className="text-xs text-slate-400 tracking-wide mb-1">
+        {label}
+      </div>
+
+      <div
+        className={`
+          text-xl font-semibold
+          transition-all duration-300
+          text-${highlight}
+          group-hover:scale-105
+          group-hover:drop-shadow-[0_0_10px_rgba(56,189,248,0.4)]
+        `}
+      >
+        {value}
+      </div>
     </div>
   );
 }

@@ -16,10 +16,12 @@ export default function CalculatorForm() {
   const [result, setResult] = useState<CalcResult | null>(null);
   const [rev, setRev] = useState(0);
 
+
   async function handleCalculate() {
     setLoading(true);
     setResult(null);
     setRev(0);
+  
     let interval = d === "RWD" ? 35 : 80;
     function rev():void {
       setRev((r):number => {
@@ -63,7 +65,6 @@ export default function CalculatorForm() {
       }, 3000);
     } catch (err) {
       console.error(err);
-      alert("Calculation failed — check inputs or backend.");
       setLoading(false);
       clearInterval(revTimer);
       setRev(0);
@@ -75,9 +76,9 @@ export default function CalculatorForm() {
       <div className="grid grid-cols-1 gap-4">
         <FloatingInput label="Horsepower (hp)" value={h} onChange={setH} />
         <FloatingInput label="Torque (lb·ft)" value={t} onChange={setT} />
-        <FloatingInput label="Weight (lbs)" value={w} onChange={setW} />
-
+        <FloatingInput label="Weight (lbs)" value={w} onChange={setW}/>
         <div>
+
           <div className="mb-2 text-sm text-slate-300">Drivetrain</div>
           <div className="flex gap-3">
             {["FWD", "RWD", "AWD"].map((opt) => (
