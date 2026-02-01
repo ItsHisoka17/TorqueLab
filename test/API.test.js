@@ -17,7 +17,6 @@ test("api/calculate Route Test", async ()=> {
     address = (address===("::"||"0.0.0.0") ? "localhost" : address);
     let addr = (agent instanceof Server ? "https" : "http") + "://" + address + ":" + port;
     routeAddr = addr + routes["calc"];
-    console.log(routeAddr)
     let options = {
         method: "POST",
         headers: {
