@@ -4,10 +4,10 @@ echo "Enter Port:"
 read port
 
 pid=$(lsof -ti:$port)
-kill -9 $pid
+kill $pid
 
 else
 
 pid=$(lsof -ti:$1)
-kill -9 $pid
+kill $pid
 fi

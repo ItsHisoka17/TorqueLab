@@ -4,3 +4,7 @@ node_modules
 Dockerfile
 .env
 npm-debug.log
+
+//Client
+src/client/node_modules
+src/client/dist
