@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jest",
     "build": "npm run build --prefix src/client",
-    "killport": "./scripts/kill.sh",
-    "rundev": "./scripts/init.sh",
+    "killport": "echo \"DEV ONLY COMMAND\" && ./scripts/kill.sh",
+    "rundev": "echo \"DEV ONLY COMMAND\" && ./scripts/init.sh",
     "start": "npm run build && node ."
   },
   "repository": {
