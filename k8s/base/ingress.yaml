@@ -1,8 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
-metaData:
-  name: torquelab-Ingress
-  annotations: nginx.ingress.kubernetes.io/rewrite-target: /
+metadata:
+  name: torquelab-ingress
+  annotations: 
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
@@ -11,15 +12,18 @@ spec:
        paths:
         - path: /
           pathType: Prefix
-          service: 
-            name: frontend
-            port:
-              number: 80
+          backend:
+            service: 
+              name: frontend
+              port:
+                number: 80
         - path: /api
-          service:
-            name: torquelab
-            port:
-              number: 80
+          pathType: Prefix
+          backend:
+            service:
+              name: torquelab
+              port:
+                number: 80
 
 
 

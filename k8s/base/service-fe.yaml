@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
-metaData:
+metadata:
   name: frontend
 spec:
   selector:
     app: frontend
-ports:
-    port: 80
-    targetPort: 5173
-type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 5173
+  type: ClusterIP
