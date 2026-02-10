@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ResultCard from "./ResultCard";
 import Tachometer from "./Tachometer.tsx";
-import type { CalcData, CalcResult } from "../../../../typings/Typings";
+import type { CalcData, CalcResult } from "../../typings/Typings";
 
 interface Payload {
   data: CalcData;

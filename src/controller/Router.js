@@ -16,10 +16,10 @@ class Router {
                 let data = calc(req.body.data);
                 return res.json(data)
             } else {
-                return error({message: "400 Invalid Request", status: 400}, req, res)
+                return error({message: "400 Invalid Request", status: 400}, res)
             }
             } catch (e) {
-                error({message: e, status: 400}, req, res);
+                error({message: e, status: 400}, res);
             };
         });
 

@@ -5,6 +5,5 @@ Dockerfile
 .env
 npm-debug.log
 .DS_Store
-
-//Client in separate container
-src/client
+dist
+Dockerfile

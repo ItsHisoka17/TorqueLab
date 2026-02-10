@@ -1,4 +1,4 @@
-import type { CalcResult } from "../../../../typings/Typings";
+import type { CalcResult } from "../../typings/Typings";
 import Stat from "./Stat";
 
 export default function ResultCard({ result }: { result: CalcResult }) {

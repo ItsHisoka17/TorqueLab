@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metaData:
+  name: torquelab
+selector:
+  matchLabels:
+    app: torquelab
+template:
+    metaData:
+      labels:
+        app: torquelab
+    spec:
+     replicas: 1
+     containers:
+      - name: torquelab
+        image: torquelab:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 3000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metaData:
+  name: frontend
+selector:
+  matchLabels:
+    app: frontend
+template:
+  labels:
+    app: frontend
+  spec:
+    replicas: 1
+    containers:
+      - name: frontend
+        image: torquelabfe:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 5173

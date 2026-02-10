@@ -4,11 +4,12 @@
  * @param {import ("../../typings/Typings").Response} res
  */
 
-module.exports = function({message, status}, req, res){
-    res.status(status)
+module.exports = function({message, status}, response){
+    response.status(status)
     .json({
         error: message,
         status
     });
     console.log(message)
 };
+
