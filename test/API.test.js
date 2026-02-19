@@ -1,6 +1,6 @@
 /**
  * Testing API Router | Backend | Frontend
- * Testing to be implemented without external modules
+ * Testing to be implemented without external libraries
 */
 
 const { Server } = require("tls");
