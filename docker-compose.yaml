@@ -1,0 +1,13 @@
+services:
+  frontend:
+    container_name: torquelabfe
+    build: ./src/client
+    ports: 
+      - "80:80"
+    restart: always
+  backend:
+    container_name: torquelab
+    build: .
+    ports:
+      - "3000:3000"
+    restart: always
